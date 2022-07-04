@@ -11,6 +11,7 @@ public class Role extends BaseEntity {
 	//描述   
 	private String description;
 
+
 	public void setRoleName(String value) {
 		this.roleName = value;
 	}
