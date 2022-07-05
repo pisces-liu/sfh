@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/role")
-public class RoleController {
+public class RoleController extends BaseController {
     @Autowired
     private RoleService roleService;
 
@@ -49,34 +46,7 @@ public class RoleController {
         return "role/index";
     }
 
-    /**
-     * 封装页面提交的分页参数及搜索条件
-     * @param request
-     * @return
-     */
-    private Map<String, Object> getFilters(HttpServletRequest request) {
-        Enumeration<String> paramNames = request.getParameterNames();
-        Map<String, Object> filters = new TreeMap();
-        while(paramNames != null && paramNames.hasMoreElements()) {
-            String paramName = (String)paramNames.nextElement();
-            String[] values = request.getParameterValues(paramName);
-            if (values != null && values.length != 0) {
-                if (values.length > 1) {
-                    filters.put(paramName, values);
-                } else {
-                    filters.put(paramName, values[0]);
-                }
-            }
-        }
-        if(!filters.containsKey("pageNum")) {
-            filters.put("pageNum", 1);
-        }
-        if(!filters.containsKey("pageSize")) {
-            filters.put("pageSize", 10);
-        }
 
-        return filters;
-    }
 
     /*
      * 跳转到 新增页面
